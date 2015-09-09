@@ -8,7 +8,8 @@ using namespace std;
 
 #include "pai_tok.h"
 
-Tok::Tok(const tok_type tt = TK_UNDEFINED) : tk_type(tt), tk_lineno(-1), tk_data("<INTERNAL>"), tk_pos(-1)
+Tok::Tok(const tok_type tt) :
+	tk_type(tt), tk_lineno(-1), tk_data("<INTERNAL>"), tk_pos(-1)
 {
 
 }

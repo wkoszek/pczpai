@@ -8,6 +8,8 @@
 
 #include <sysexits.h>
 
+#include <unistd.h>
+
 using namespace std;
 
 #include "pai_types.h"
