@@ -3,6 +3,7 @@
 #include <iterator>
 #include <cassert>
 #include <list>
+#include <stdlib.h>
 
 using namespace std;
 
