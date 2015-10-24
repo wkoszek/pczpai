@@ -22,65 +22,65 @@ using namespace std;
 #include "pai_ic.h"
 
 /*
- * B³êdy:
- * - nie zachowa³em plików z b³êdnymi danymi, dziêki którym wy³apywa³em
- *   b³êdy w razie procesu testowania.
+ * BÅ‚Ä™dy:
+ * - nie zachowaÅ‚em plikÃ³w z bÅ‚Ä™dnymi danymi, dziÄ™ki ktÃ³rym wyÅ‚apywaÅ‚em
+ *   bÅ‚Ä™dy w razie procesu testowania.
  */
 
 /*
  * Zmienne globalne:
  * 
  * verbose:	poziom logowania
- * ctx_lines:	ilo¶æ linii wy¶wietlanych w konek¶cie b³êdu
+ * ctx_lines:	iloÅ›Ä‡ linii wyÅ›wietlanych w konekÅ›cie bÅ‚Ä™du
  *
  */
 int verbose = 0;
 int ctx_lines =  1;
 
 /* -----------------------------------------------------------------
- * Sposób obs³ugi plików wej¶ciowych jest analogiczny do sytuacji
- * spotykanej w czê¶ci typu front-end kompilatora:
+ * SposÃ³b obsÅ‚ugi plikÃ³w wejÅ›ciowych jest analogiczny do sytuacji
+ * spotykanej w czÄ™Å›ci typu front-end kompilatora:
  * 
  * (1) analiza leksykalna
  * (2) analiza semantyczna
  *
- * W trakcie analizy leksykalnej wczytuj±c plik wej¶ciowy wyró¿niamy
- * poszczególne fragmenty tekstu, które z punktu widzenia pó¼niejszej
- * analizy s± dla nas interesuj±ce. Fragmenty te, dalej zwane tokenami,
- * posiadaj± swoj± warto¶æ, typ oraz przynale¿± do konkretnej linii
- * tekstu, z której zosta³y stworzone. Ostatnia informacja jest podstaw±
- * do procesu odtworzenia linii pliku wej¶ciowego z której dany token
- * pochodzi; funkcjonalno¶æ ta jest przydatna przy generacji komunikatów
- * b³êdów w przypadku niepoprawnej struktury pliku wej¶ciowego.
+ * W trakcie analizy leksykalnej wczytujÄ…c plik wejÅ›ciowy wyrÃ³Å¼niamy
+ * poszczegÃ³lne fragmenty tekstu, ktÃ³re z punktu widzenia pÃ³Åºniejszej
+ * analizy sÄ… dla nas interesujÄ…ce. Fragmenty te, dalej zwane tokenami,
+ * posiadajÄ… swojÄ… wartoÅ›Ä‡, typ oraz przynaleÅ¼Ä… do konkretnej linii
+ * tekstu, z ktÃ³rej zostaÅ‚y stworzone. Ostatnia informacja jest podstawÄ…
+ * do procesu odtworzenia linii pliku wejÅ›ciowego z ktÃ³rej dany token
+ * pochodzi; funkcjonalnoÅ›Ä‡ ta jest przydatna przy generacji komunikatÃ³w
+ * bÅ‚Ä™dÃ³w w przypadku niepoprawnej struktury pliku wejÅ›ciowego.
  *
- * Token (class Tok) po rozpoznaniu dodawany jest do listy tokenów
- * (class TokList) w kolejno¶ci pojawienia siê w pliku wej¶ciowym. Owa
- * lista prócz tokenów stworzonych w oparciu o dane wej¶ciowe, zawiera
- * jeden, syntetyczny token sygnalizuj±cy koniec listy i s³u¿±cy do
- * zaznaczenia koñca danych wej¶ciowych.
+ * Token (class Tok) po rozpoznaniu dodawany jest do listy tokenÃ³w
+ * (class TokList) w kolejnoÅ›ci pojawienia siÄ™ w pliku wejÅ›ciowym. Owa
+ * lista prÃ³cz tokenÃ³w stworzonych w oparciu o dane wejÅ›ciowe, zawiera
+ * jeden, syntetyczny token sygnalizujÄ…cy koniec listy i sÅ‚uÅ¼Ä…cy do
+ * zaznaczenia koÅ„ca danych wejÅ›ciowych.
  *
- * Rozró¿niamy tokeny nastêpuj±cych typów:
+ * RozrÃ³Å¼niamy tokeny nastÄ™pujÄ…cych typÃ³w:
  * 
- * - TK_UNDEFINED (wewnêtrzny, stosowany w tej implementacji)
- * - TK_WS	- token zawieraj±cy jedynie bia³e znaki
+ * - TK_UNDEFINED (wewnÄ™trzny, stosowany w tej implementacji)
+ * - TK_WS	- token zawierajÄ…cy jedynie biaÅ‚e znaki
  * - TK_NL	- token nowej linii
- * - TK_INT	- token z liczb± ca³kowit±
- * - TK_FP	- token z liczb± zmiennoprzecinkow±
+ * - TK_INT	- token z liczbÄ… caÅ‚kowitÄ…
+ * - TK_FP	- token z liczbÄ… zmiennoprzecinkowÄ…
  *
  * Token TK_INT jest syntetycznym tworem tworzonym na bazie tokenu o
- * rodzaju TK_FP, gdy ten posiada jedynie wy³±cznie czê¶æ ca³kowit±
- * (wy³±cznie zera po znaku separatora '.').
+ * rodzaju TK_FP, gdy ten posiada jedynie wyÅ‚Ä…cznie czÄ™Å›Ä‡ caÅ‚kowitÄ…
+ * (wyÅ‚Ä…cznie zera po znaku separatora '.').
  *
  * Analiza semantyczna polega na sprawdzeniu, czy tokeny obecne na
- * li¶cie pojawi³y siê w pliku wej¶ciowym z odpowiednimi warto¶ciami i
- * nale¿yt± kolejno¶ci±. Funkcje Expect*() sprawdzaj± obecno¶æ
- * spodziewanego tokena. Zwracaj± jego warto¶æ w przypadku powodzenia.
- * Wywo³uj± wyj±tek w przypadku b³êdu, generuj±c przy tym stosowny
+ * liÅ›cie pojawiÅ‚y siÄ™ w pliku wejÅ›ciowym z odpowiednimi wartoÅ›ciami i
+ * naleÅ¼ytÄ… kolejnoÅ›ciÄ…. Funkcje Expect*() sprawdzajÄ… obecnoÅ›Ä‡
+ * spodziewanego tokena. ZwracajÄ… jego wartoÅ›Ä‡ w przypadku powodzenia.
+ * WywoÅ‚ujÄ… wyjÄ…tek w przypadku bÅ‚Ä™du, generujÄ…c przy tym stosowny
  * komunikat.
  */
 
 /*
- * Konwertuje rodzaj tokenu do postaci mo¿liwej do wypisania.
+ * Konwertuje rodzaj tokenu do postaci moÅ¼liwej do wypisania.
  */
 const string&
 _TokType2Name(const tok_type tt = TK_UNDEFINED)
@@ -117,7 +117,7 @@ _TokType2Name(const tok_type tt = TK_UNDEFINED)
 }
 
 /*
- * Jak u¿ywaæ tego programu.
+ * Jak uÅ¼ywaÄ‡ tego programu.
  */
 static void
 usage(const char *progname)
@@ -130,7 +130,7 @@ usage(const char *progname)
 }
 
 /*
- * Program g³ówny.
+ * Program gÅ‚Ã³wny.
  */
 int
 main(int argc, char **argv)
@@ -153,7 +153,7 @@ main(int argc, char **argv)
 	int i;
 
 	/*
-	 * Przegl±danie flag i argumentów.
+	 * PrzeglÄ…danie flag i argumentÃ³w.
 	 */
 	while ((o = getopt(argc, argv, "a:c:E:m:o:v")) != -1) {
 		switch (o) {
@@ -187,10 +187,10 @@ main(int argc, char **argv)
 	av = argv + optind;
 
 	/*
-	 * Sprawdzam poprawno¶æ przekazanych argumentów.
+	 * Sprawdzam poprawnoÅ›Ä‡ przekazanych argumentÃ³w.
 	 */
 	if (prefix.length() > 0 && ac > 0) {
-		cerr << "Poda³e¶ redundantne parametry: '";
+		cerr << "PodaÅ‚eÅ› redundantne parametry: '";
 		for (i = 0; i < ac - 1; i++)
 			cout << av[i] << " ";
 		cout << av[ac - 1] << "'" << endl;
@@ -198,12 +198,12 @@ main(int argc, char **argv)
 		exit(EX_USAGE);
 	}
 	if (mode != 'F' && mode != 'B') {
-		cerr << "Z³y tryb" << endl;
+		cerr << "ZÅ‚y tryb" << endl;
 		usage(argv[0]);
 	}
 
 	/*
-	 * Dbam o za³o¿enia projektu dot. flag przekazywanych do
+	 * Dbam o zaÅ‚oÅ¼enia projektu dot. flag przekazywanych do
 	 * programu.
 	 */
 	if (prefix.length() > 0) {
@@ -249,11 +249,11 @@ main(int argc, char **argv)
 	IC *ic = NULL;
 
 	/*
-	 * W³a¶ciwe przetwarzanie plików rozpoczyna siê tutaj.
+	 * WÅ‚aÅ›ciwe przetwarzanie plikÃ³w rozpoczyna siÄ™ tutaj.
 	 */
 	try {
 		/*
-		 * Wczytywanie plików. Ka¿dy obiekt osobnej klasy
+		 * Wczytywanie plikÃ³w. KaÅ¼dy obiekt osobnej klasy
 		 * reprezentuje osobny plik.
 		 */
 		tkl = new MSH(fn_msh.c_str());
@@ -262,21 +262,21 @@ main(int argc, char **argv)
 		ic = new IC(fn_ic.c_str());
 	} catch (const string &e) {
 		/*
-		 * Wyst±pi³ wyj±tek podczas przetwarzania pliku.
-		 * Prawdopodobnie to b³±d dot. formatu wczytywanych
-		 * plików.
+		 * WystÄ…piÅ‚ wyjÄ…tek podczas przetwarzania pliku.
+		 * Prawdopodobnie to bÅ‚Ä…d dot. formatu wczytywanych
+		 * plikÃ³w.
 		 */
 		cerr << e << endl;
 	} catch (...) {
 		/* 
-		 * Tutaj mo¿emy zjawiæ siê, gdy wyst±pi³ inny typ b³êdu.
-		 * Musimy byæ przygotowani równie¿ na jego obs³u¿enie.
+		 * Tutaj moÅ¼emy zjawiÄ‡ siÄ™, gdy wystÄ…piÅ‚ inny typ bÅ‚Ä™du.
+		 * Musimy byÄ‡ przygotowani rÃ³wnieÅ¼ na jego obsÅ‚uÅ¼enie.
 		 */
 		cerr << "Internal error" << endl;
 	}
 
 	/*
-	 * Dla pewno¶ci sprawdzamy, czy ka¿dy z obiektów co¶
+	 * Dla pewnoÅ›ci sprawdzamy, czy kaÅ¼dy z obiektÃ³w coÅ›
 	 * reprezentuje.
 	 */
 	assert(tkl != NULL);
@@ -285,7 +285,7 @@ main(int argc, char **argv)
 	assert(ic != NULL);
 
 	/*
-	 * W³a¶ciwe przetwarzanie rozpoczyna siê tutaj.
+	 * WÅ‚aÅ›ciwe przetwarzanie rozpoczyna siÄ™ tutaj.
 	 */
 	if (mode == 'F') {
 		tkl->Process();

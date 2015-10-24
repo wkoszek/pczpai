@@ -31,14 +31,14 @@ class MSH : public TokList {
 		MSH(const string &fn);
 		MSH(const char *fn);
 
-		/* Zwraca wêze³ na podstawie jego indeksu */
+		/* Zwraca wÄ™zeÅ‚ na podstawie jego indeksu */
 		struct wezel *
 		Wezel(int idx);
 
 		/* 
-		 * Tymczasowa funkcja zdolna do wykonywania obliczeñ na
-		 * wcze¶niej wszytanych danych. To prawdopodobnie bêdzie
-		 * zale¿eæ od rodzaju schematu obliczeñ.
+		 * Tymczasowa funkcja zdolna do wykonywania obliczeÅ„ na
+		 * wczeÅ›niej wszytanych danych. To prawdopodobnie bÄ™dzie
+		 * zaleÅ¼eÄ‡ od rodzaju schematu obliczeÅ„.
 		 */
 		void
 		Process(void);

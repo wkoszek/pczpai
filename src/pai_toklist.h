@@ -2,25 +2,25 @@
 #define _PAI_TOKLIST_H_
 
 /* -------------------------------------------------------------
- * Szczególne przypadki wczytywania--pliki z danymi
+ * SzczegÃ³lne przypadki wczytywania--pliki z danymi
  *
- * Ka¿dy typ pliku przyporz±dkowany jest do okre¶lonej klasy:
+ * KaÅ¼dy typ pliku przyporzÄ…dkowany jest do okreÅ›lonej klasy:
  *
  * .msh		class MSH
  * .bc		class BC
  *
- * Ka¿da z klas jest pochodn± klasy TokList. Tworz±c obiekt danej klasy
- * automatycznie tworzona jest lista tokenów z danego pliku. Przekazanie
- * nazwy pliku odbywa siê poprzez przekazanie jej jako argumentu
- * konstruktora. Nastêpnie, wo³ana jest metoda specyficzna dla ka¿dej z
- * klas--a co za tym idzie, poszczególnego pliku.
+ * KaÅ¼da z klas jest pochodnÄ… klasy TokList. TworzÄ…c obiekt danej klasy
+ * automatycznie tworzona jest lista tokenÃ³w z danego pliku. Przekazanie
+ * nazwy pliku odbywa siÄ™ poprzez przekazanie jej jako argumentu
+ * konstruktora. NastÄ™pnie, woÅ‚ana jest metoda specyficzna dla kaÅ¼dej z
+ * klas--a co za tym idzie, poszczegÃ³lnego pliku.
  *
- * WK: Rozwa¿yæ wykorzystanie klasy abstrakcyjnej TokList z metod±
- *     wirtualn± ReadData.
+ * WK: RozwaÅ¼yÄ‡ wykorzystanie klasy abstrakcyjnej TokList z metodÄ…
+ *     wirtualnÄ… ReadData.
  */
 
 /*
- * Lista z tokenami wej¶ciowymi.
+ * Lista z tokenami wejÅ›ciowymi.
  */
 class TokList {
 	public:
@@ -57,12 +57,12 @@ class TokList {
 		void TokSkipTill(const tok_type &t);
 
 		/*
-		 * Wypada³oby pomy¶leæ o czym¶ innym ni¿ TokGet.
+		 * WypadaÅ‚oby pomyÅ›leÄ‡ o czymÅ› innym niÅ¼ TokGet.
 		 *
-		 * Rozwa¿yæ:
+		 * RozwaÅ¼yÄ‡:
 		 *
 		 * 	TokGet() -- zwraca obecny token
-		 * 	TokNext()-- jedynie przesuwa wska¼nik.
+		 * 	TokNext()-- jedynie przesuwa wskaÅºnik.
 		 *
 		 */
 

@@ -79,24 +79,24 @@ MSH::MSH_Tokenize(void)
 	ExpectString("[WSPOLRZEDNE"); ExpectWs(); ExpectString("WEZLOW]"); TokSkip1(TK_WS); ExpectNl();
 
 	/* ------------------------------------------------------------ 
-	 * Alokacja pamiêci do przechowywania danych.
+	 * Alokacja pamiÄ™ci do przechowywania danych.
 	 */
 	wezly = new (nothrow) wezel[l_wezlow];
 	assert(wezly != NULL && "nie moge zaalokowac pamieci na wezly");
 
 	koneksje = new (nothrow) koneksja[l_elem];
-	assert(koneksje != NULL && "nie mogê zaalokowaæ pamiêci na"
+	assert(koneksje != NULL && "nie mogÄ™ zaalokowaÄ‡ pamiÄ™ci na"
 	    " koneksje");
 
 	brzegi = new (nothrow) brzeg[l_brzegow];
-	assert(koneksje != NULL && "nie mogê zaalokowaæ pamiêci na"
+	assert(koneksje != NULL && "nie mogÄ™ zaalokowaÄ‡ pamiÄ™ci na"
 	    " brzegi");
 	
 	/*
-	 * WK: Wychwyciæ b³êdy z dziwnymi indeksami:
-	 *     - czy indeksy maj± byæ po kolei?
-	 *     - co zrobiæ, gdy podano 2 wiersze z tym samym indeksem:
-	 *       - pewnie nadpisaæ stary wiersz
+	 * WK: WychwyciÄ‡ bÅ‚Ä™dy z dziwnymi indeksami:
+	 *     - czy indeksy majÄ… byÄ‡ po kolei?
+	 *     - co zrobiÄ‡, gdy podano 2 wiersze z tym samym indeksem:
+	 *       - pewnie nadpisaÄ‡ stary wiersz
 	 */
 	for (j = 0; j < l_wezlow; j++) {
 		widx = ExpectInt();
@@ -127,11 +127,11 @@ MSH::MSH_Tokenize(void)
 			ExpectWs();
 		}
 		/*
-		 * Powinienem móc wymusiæ na ExpectInt() mo¿liwo¶æ
-		 * oczekiwania konkretnej warto¶ci.
+		 * Powinienem mÃ³c wymusiÄ‡ na ExpectInt() moÅ¼liwoÅ›Ä‡
+		 * oczekiwania konkretnej wartoÅ›ci.
 		 */
 		i = ExpectInt();
-		assert(i == 1 && "Z³y plik z danymi");
+		assert(i == 1 && "ZÅ‚y plik z danymi");
 		ExpectNl();
 	}
 	ExpectNl();
@@ -179,7 +179,7 @@ MSH::MSH_Tokenize(void)
 	
 	if (verbose) {
 		cout << "--------------------------" << endl;
-		cout << "Wypisujê dane z pliku .msh" << endl;
+		cout << "WypisujÄ™ dane z pliku .msh" << endl;
 		cout << l_wymiarow << endl;
 		cout << l_wezlow << endl;
 		cout << l_elem << endl;
@@ -208,7 +208,7 @@ MSH::MSH(const char *fn) : TokList(fn)
 }
 
 /*
- * Zamiast w tablicy, wêz³y powinny byæ trzymane w wektorze, albo mapie.
+ * Zamiast w tablicy, wÄ™zÅ‚y powinny byÄ‡ trzymane w wektorze, albo mapie.
  */
 struct wezel *
 MSH::Wezel(int idx)
@@ -291,12 +291,12 @@ MSH::Process(void)
 	}
 
 	for (i = 0; i < l_elem; i++) {
-		/* indeksy wez³ów */
+		/* indeksy wezÅ‚Ã³w */
 		i1 = koneksje[i].k_wzl[0];
 		i2 = koneksje[i].k_wzl[1];
 		i3 = koneksje[i].k_wzl[2];
 
-		/* stuktury danych wêz³ów */
+		/* stuktury danych wÄ™zÅ‚Ã³w */
 		w1 = Wezel(i1);
 		assert(w1 != NULL && "nie moge znalezc 1 wezla");
 		w2 = Wezel(i2);
@@ -304,7 +304,7 @@ MSH::Process(void)
 		w3 = Wezel(i3);
 		assert(w3 != NULL && "nie moge znalezc 3 wezla");
 
-		/* tutaj ju¿ indeksy macierzy globalnej */
+		/* tutaj juÅ¼ indeksy macierzy globalnej */
 		i1 -= 1;
 		i2 -= 1;
 		i3 -= 1;
@@ -348,7 +348,7 @@ MSH::Process(void)
 		c33 = x2 - x1;
 
 		/*
-		 * Metod± Kopiego-Pasta. WK: Te¿ mo¿na zoptymalizowaæ.
+		 * MetodÄ… Kopiego-Pasta. WK: TeÅ¼ moÅ¼na zoptymalizowaÄ‡.
 		 */
 		mp[0][0] = (c21 * c21) + (c31 * c31);
 		mp[0][1] = (c21 * c22) + (c31 * c32);
@@ -372,7 +372,7 @@ MSH::Process(void)
 		int tidx[3];
 		int tr, tc;
 
-		/* translacja indeksów lokalnych na globalne */
+		/* translacja indeksÃ³w lokalnych na globalne */
 		tidx[0] = i1;
 		tidx[1] = i2;
 		tidx[2] = i3;
@@ -385,7 +385,7 @@ MSH::Process(void)
 				tc = tidx[c];
 				if (verbose) {
 					cout << "Element [" << r << "," << c;
-					cout << "\t wpiszê do G[" << tr << ",";
+					cout << "\t wpiszÄ™ do G[" << tr << ",";
 					cout << tc << "]" << endl;
 				}
 				gmpk[tr][tc] += mp[r][c];
@@ -405,7 +405,7 @@ MSH::Process(void)
 	}
 
 	cout << "M:" << endl;
-	/* tylko po przek±tnej */
+	/* tylko po przekÄ…tnej */
 	for (r = 0; r < l_wezlow; r++)
 		cout << "\t" << mg[r][r];
 	cout << endl;
@@ -429,7 +429,7 @@ MSH::MTXWrite(const char *path)
 	}
 
 	of << "M:" << endl;
-	/* tylko po przek±tnej */
+	/* tylko po przekÄ…tnej */
 	for (r = 0; r < l_wezlow; r++)
 		of << "\t" << mg[r][r];
 	of << endl;

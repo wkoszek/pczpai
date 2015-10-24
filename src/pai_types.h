@@ -2,9 +2,9 @@
 #define _PAI_TYPES_H_
 
 /* ---------------------------------------------------------------------
- * Wewnêtrzne typy danych. Te dane s± wed³ug mnie wybitnie strukturalne
- * i nie ma potrzeby marnowania dodatkowych linii kodu na konwersjê ze
- * zwyk³ych struktur do klas.
+ * WewnÄ™trzne typy danych. Te dane sÄ… wedÅ‚ug mnie wybitnie strukturalne
+ * i nie ma potrzeby marnowania dodatkowych linii kodu na konwersjÄ™ ze
+ * zwykÅ‚ych struktur do klas.
  */
 class wezel {
 	public:

@@ -14,7 +14,7 @@ extern int verbose;
 extern int ctx_lines;
 
 /*
- * Tworzy listê tokenów na podstawie zawarto¶ci pliku, którego nazwa
+ * Tworzy listÄ™ tokenÃ³w na podstawie zawartoÅ›ci pliku, ktÃ³rego nazwa
  * przekazana jest jako parametr.
  */
 void
@@ -38,7 +38,7 @@ TokList::_TokList(const char *fn)
 
 	fin.open(fn);
 	if (fin.is_open() != 1) {
-		e = "Nie mogê otworzyæ pliku: ";
+		e = "Nie mogÄ™ otworzyÄ‡ pliku: ";
 		e += fn;
 		throw (e);
 	}
@@ -47,10 +47,10 @@ TokList::_TokList(const char *fn)
 	lineno = 1;
 	while (getline(fin, line)) {
 		/*
-		 * Potrzebujê równie¿ rozró¿nienia, kiedy i gdzie
-		 * wystêpuje znak nowej linii. Naj³atwiejszym sposobem
+		 * PotrzebujÄ™ rÃ³wnieÅ¼ rozrÃ³Å¼nienia, kiedy i gdzie
+		 * wystÄ™puje znak nowej linii. NajÅ‚atwiejszym sposobem
 		 * jest ponowne dodanie znaku '\n' na koniec 'line',
-		 * gdy¿ zosta³ on usuniêty w funkcji getline().
+		 * gdyÅ¼ zostaÅ‚ on usuniÄ™ty w funkcji getline().
 		 */
 		line += '\n';
 		pos = 0;
@@ -59,8 +59,8 @@ TokList::_TokList(const char *fn)
 		    si != line.end(); ) {
 
 			/*
-			 * Zale¿y mi jedynie na podziale: tekst
-			 * sk³adaj±cy siê z "bia³ych znaków" b±d¼
+			 * ZaleÅ¼y mi jedynie na podziale: tekst
+			 * skÅ‚adajÄ…cy siÄ™ z "biaÅ‚ych znakÃ³w" bÄ…dÅº
 			 * innych.
 			 */
 			word = "";
@@ -77,10 +77,10 @@ TokList::_TokList(const char *fn)
 			}
 	
 			/*
-			 * Dla obu ci±gów stosujê te same kryteria: gdy
-			 * d³ugo¶æ danego ci±gu jest wiêksza od 0, to na
-			 * podstawie ci±gu tworzymy token. St±d dokonujê
-			 * tych samych testów na dwóch obiektach klasy
+			 * Dla obu ciÄ…gÃ³w stosujÄ™ te same kryteria: gdy
+			 * dÅ‚ugoÅ›Ä‡ danego ciÄ…gu jest wiÄ™ksza od 0, to na
+			 * podstawie ciÄ…gu tworzymy token. StÄ…d dokonujÄ™
+			 * tych samych testÃ³w na dwÃ³ch obiektach klasy
 			 * string.
 			 */
 			sptr[0] = &ws;
@@ -92,7 +92,7 @@ TokList::_TokList(const char *fn)
 					    pos - sp->length());
 					assert(tk != NULL && "can't allocate space token");
 					/*
-					 * Lista tokenów.
+					 * Lista tokenÃ³w.
 					 */
 					tklist.push_back(tk);
 				}
@@ -147,7 +147,7 @@ TokList::_GetLine(int ln, string &s)
 		return (0);
 
 	/* 
-	 * Przejd¼ do interesuj±cej nas linii.
+	 * PrzejdÅº do interesujÄ…cej nas linii.
 	 */
 	for (it = tklist.begin(); it != tklist.end(); it++) {
 		j = *it;
@@ -162,12 +162,12 @@ TokList::_GetLine(int ln, string &s)
 	assert(j != NULL);
 
 	/*
-	 * Odtwórz liniê poprzez pobranie wszystkich warto¶ci jej
-	 * tokenów.
+	 * OdtwÃ³rz liniÄ™ poprzez pobranie wszystkich wartoÅ›ci jej
+	 * tokenÃ³w.
 	 */
 	s = "";
 	while (j->TkLineNo() == ln) {
-		/* WK: pamiêtaj, ¿e konstruktor robi tk_lineno = -1 */
+		/* WK: pamiÄ™taj, Å¼e konstruktor robi tk_lineno = -1 */
 		if (j->isNewLine())
 			s += " ";
 		else
@@ -182,7 +182,7 @@ TokList::_GetLine(int ln, string &s)
 }
 
 /*
- * Na podstawie tokeka odtwórz liniê, z której pochodzi.
+ * Na podstawie tokeka odtwÃ³rz liniÄ™, z ktÃ³rej pochodzi.
  */
 int
 TokList::_Tok2Line(const Tok *tk, string &s)
@@ -194,13 +194,13 @@ TokList::_Tok2Line(const Tok *tk, string &s)
 }
 
 /*
- * To doprawy beznadziejne, ¿e muszê kodowaæ tê konwersjê rêcznie.
- * Powinienem móc zrobiæ:
+ * To doprawy beznadziejne, Å¼e muszÄ™ kodowaÄ‡ tÄ™ konwersjÄ™ rÄ™cznie.
+ * Powinienem mÃ³c zrobiÄ‡:
  *
  * 	double pi = 3.14;
  * 	string a = string(pi);
  *
- * Strumienie wewnêtrzne to jednak nie to..
+ * Strumienie wewnÄ™trzne to jednak nie to..
  */
 void
 Int2String(int i, string *s)
@@ -221,7 +221,7 @@ Int2String(int i, string *s)
 }
 
 /*
- * Na podstawie tokena, stwórz informacjê o b³êdzie.
+ * Na podstawie tokena, stwÃ³rz informacjÄ™ o bÅ‚Ä™dzie.
  */
 string&
 TokList::TokErrStr(const Tok *tk, const string &msg)
@@ -251,9 +251,9 @@ TokList::TokErrStr(const Tok *tk, const string &msg)
 	sz = 2 * ctx_lines + 1; /* ile alokuje */
 	lines = new (nothrow) pair<string, string>[sz];
 	assert(lines != NULL);
-	bl = tk->TkLineNo() - ctx_lines; /* od której */
-	el = tk->TkLineNo() + ctx_lines; /* do której */
-	f = 0; /* ile faktycznie siê nadaje */
+	bl = tk->TkLineNo() - ctx_lines; /* od ktÃ³rej */
+	el = tk->TkLineNo() + ctx_lines; /* do ktÃ³rej */
+	f = 0; /* ile faktycznie siÄ™ nadaje */
 	for (i = bl; i <= el; i++) {
 		if (!_GetLine(i, l))
 			continue;
@@ -262,14 +262,14 @@ TokList::TokErrStr(const Tok *tk, const string &msg)
 		lines[f].first = buf;
 		lines[f].second = l + "\n";
 		if (i == tk->TkLineNo())
-			/* w tej linii jest b³±d */
+			/* w tej linii jest bÅ‚Ä…d */
 			k = f;
 		f++;
 	}
 	for (j = 0; j < f; j++) {
 		e += "\t" + lines[j].first + ": " + lines[j].second;
 		if (j == k) {
-			/* Sprawdziæ, czy siê nie rozje¿d¿a. */
+			/* SprawdziÄ‡, czy siÄ™ nie rozjeÅ¼dÅ¼a. */
 			e += ">-------"; 
 			i = lines[j].first.length();
 			i += tk->TkPos();
@@ -292,10 +292,10 @@ TokList::TokErrStr(const Tok *tk, const string &msg)
 /*
  * WK:
  *
- * Ka¿da z Expect* powinna wyrzucaæ wyj±tek.
+ * KaÅ¼da z Expect* powinna wyrzucaÄ‡ wyjÄ…tek.
  *
- * Expect() powinna mieæ argument powoduj±cy zaniechanie wyrzucania
- * wyj±tku.
+ * Expect() powinna mieÄ‡ argument powodujÄ…cy zaniechanie wyrzucania
+ * wyjÄ…tku.
  */
 string&
 TokList::Expect(const tok_type &et, const string &eval = "")
@@ -313,9 +313,9 @@ TokList::Expect(const tok_type &et, const string &eval = "")
 
 	if (et == TK_INT && tt == TK_FP) {
 		/*
-		 * Warto¶æ zmiennoprzecinkowa mo¿e byæ uznana z warto¶æ
-		 * ca³kowit± tylko wtedy, gdy nie wystêpuje czê¶æ
-		 * u³amkowa.
+		 * WartoÅ›Ä‡ zmiennoprzecinkowa moÅ¼e byÄ‡ uznana z wartoÅ›Ä‡
+		 * caÅ‚kowitÄ… tylko wtedy, gdy nie wystÄ™puje czÄ™Å›Ä‡
+		 * uÅ‚amkowa.
 		 */
 		if (tval.find('.') != string::npos)
 			error = 1;
@@ -323,7 +323,7 @@ TokList::Expect(const tok_type &et, const string &eval = "")
 		error = (et != t->TkType());
 
 
-	/* Niezgodno¶æ typu lub warto¶ci? */
+	/* NiezgodnoÅ›Ä‡ typu lub wartoÅ›ci? */
 	if (error || m) {
 		e = "Expected object of type ";
 		e += _TokType2Name(et);
@@ -355,8 +355,8 @@ TokList::ExpectString(const string &str)
 	string tmp = "";
 
 	/* 
-	 * Zgodnie z wymaganiami, nie potrzebujê rozró¿niaæ, czy
-	 * ci±g bêdzie sk³ada³ siê z wielkich czy ma³ych liter.
+	 * Zgodnie z wymaganiami, nie potrzebujÄ™ rozrÃ³Å¼niaÄ‡, czy
+	 * ciÄ…g bÄ™dzie skÅ‚adaÅ‚ siÄ™ z wielkich czy maÅ‚ych liter.
 	 */
 	for (i = 0; i < tmp.length(); i++)
 		tmp[i] = tolower(tmp[i]);
@@ -406,8 +406,8 @@ void
 TokList::ExpectSection(const string &s)
 {
 	/*
-	 * ¯eby to zrobiæ dobrze to resztê trzeba bêdzie trochê
-	 * przerobiæ na GetTok2(), GetTok3() i sklejanie tokenów.
+	 * Å»eby to zrobiÄ‡ dobrze to resztÄ™ trzeba bÄ™dzie trochÄ™
+	 * przerobiÄ‡ na GetTok2(), GetTok3() i sklejanie tokenÃ³w.
 	 */
 	
 #if 0
@@ -431,7 +431,7 @@ TokList::ExpectSection(const string &s)
 }
 
 /*
- * Pomiñ wszystkie tokeny o typie t0 i t1, je¿eli jest wyspecyfikowane.
+ * PomiÅ„ wszystkie tokeny o typie t0 i t1, jeÅ¼eli jest wyspecyfikowane.
  */
 void
 TokList::TokSkip2(const tok_type &t0, const tok_type &t1 = TK_UNDEFINED)
@@ -464,7 +464,7 @@ TokList::TokSkip2(const tok_type &t0, const tok_type &t1 = TK_UNDEFINED)
 		}
 		if (k == 0)
 			break;
-		/* Ustaw wewnêtrzny wska¼nik na kolejny token */
+		/* Ustaw wewnÄ™trzny wskaÅºnik na kolejny token */
 		(void)TokGet();
 	} while (1);
 }

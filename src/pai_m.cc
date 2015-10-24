@@ -65,7 +65,7 @@ M::M_Tokenize(void)
 	ExpectNl();
 	ExpectNl();
 
-	/* Nag≥Ûwek */
+	/* Nag≈Ç√≥wek */
 	ExpectString("HeatTransfer_1.0");
 	ExpectNl();
 	ExpectNl();
@@ -98,7 +98,7 @@ M::M_Tokenize(void)
 
 	if (verbose) {
 		cout << "---------------------------" << endl;
-		cout << "WypisujÍ dane dot. pliku BC" << endl;
+		cout << "Wypisujƒô dane dot. pliku BC" << endl;
 		cout << l_wymiarow << endl;
 		cout << l_wezlow << endl;
 		cout << l_elem << endl;

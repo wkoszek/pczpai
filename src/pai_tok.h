@@ -2,22 +2,22 @@
 #define _PAI_TOK_H_
 
 /*
- * Rodzaj tokenu wczytanego z wej¶cia.
+ * Rodzaj tokenu wczytanego z wejÅ›cia.
  */
 typedef enum {
-	TK_UNDEFINED = -1,	/* ci±g niezdefiniowany */
-	TK_WS = 0,	/* zwyk³y odstêp */
+	TK_UNDEFINED = -1,	/* ciÄ…g niezdefiniowany */
+	TK_WS = 0,	/* zwykÅ‚y odstÄ™p */
 	TK_NL = 1,	/* nowa linia */
-	TK_INT = 2,	/* warto¶æ ca³kowita */
-	TK_FP = 3,	/* warto¶æ zmiennoprzecinkowa */
-	TK_STRING = 4,	/* ci±g znaków */
+	TK_INT = 2,	/* wartoÅ›Ä‡ caÅ‚kowita */
+	TK_FP = 3,	/* wartoÅ›Ä‡ zmiennoprzecinkowa */
+	TK_STRING = 4,	/* ciÄ…g znakÃ³w */
 	TK_EOI = 5
 } tok_type;
 
 const string& _TokType2Name(const tok_type tt);
 
 /*
- * Pojedynczy token wej¶cia.
+ * Pojedynczy token wejÅ›cia.
  */
 class Tok {
 	private:

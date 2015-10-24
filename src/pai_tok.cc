@@ -35,12 +35,12 @@ Tok::Tok(const string &tk, int lineno, int tpos)
 	do {
 		tklen = tk.length();
 		/*
-		 * Przegl±dam znaki nale¿±ce do tego
-		 * tokena i klasyfikujê je do
-		 * poszczególnych kategorii.
+		 * PrzeglÄ…dam znaki naleÅ¼Ä…ce do tego
+		 * tokena i klasyfikujÄ™ je do
+		 * poszczegÃ³lnych kategorii.
 		 */
 
-		/* mo¿e liczba ujemna? */
+		/* moÅ¼e liczba ujemna? */
 		string::const_iterator si = tk.begin();
 		if (*si == '-')
 			dig++;
@@ -52,8 +52,8 @@ Tok::Tok(const string &tk, int lineno, int tpos)
 			/*
 			 * W przypadku liczb
 			 * zmiennoprzecinkowych w
-			 * przekazanym napisie prócz
-			 * cyfr, pojawiæ siê mo¿e
+			 * przekazanym napisie prÃ³cz
+			 * cyfr, pojawiÄ‡ siÄ™ moÅ¼e
 			 * separator liczbowy.
 			 */
 			if (isdigit(*si) || *si == '.' || *si == 'e' || *si=='+') {
@@ -69,8 +69,8 @@ Tok::Tok(const string &tk, int lineno, int tpos)
 		if ((dig == tklen && isdigit(tk_data[0])) ||
 		    tk_data[0] == '-') {
 			/* 
-			 * Pierwszy znak to musi byæ liczba;
-			 * dalej mo¿e byæ kropka.
+			 * Pierwszy znak to musi byÄ‡ liczba;
+			 * dalej moÅ¼e byÄ‡ kropka.
 			 */
 			tk_type = TK_FP;
 
@@ -84,11 +84,11 @@ Tok::Tok(const string &tk, int lineno, int tpos)
 			tk_type = TK_WS;
 
 			/*
-			 * Ka¿de wyst±pienie ci±gu
-			 * bia³ych znaków zakoñczonego
-			 * bia³ym znakiem '\n'
+			 * KaÅ¼de wystÄ…pienie ciÄ…gu
+			 * biaÅ‚ych znakÃ³w zakoÅ„czonego
+			 * biaÅ‚ym znakiem '\n'
 			 * propagujemy do tyku TK_NL,
-			 * oznaczaj±cego now± liniê.
+			 * oznaczajÄ…cego nowÄ… liniÄ™.
 			 */
 			rp = tk_data.find("\n");
 			rnp = tk_data.find("\r\n");
@@ -109,7 +109,7 @@ Tok::Tok(const string &tk, int lineno, int tpos)
 }
 
 /*
- * Metody dostêpowe i kilka pomocniczych rzeczy.
+ * Metody dostÄ™powe i kilka pomocniczych rzeczy.
  */
 const tok_type&
 Tok::TkType(void) const
@@ -169,9 +169,9 @@ Tok::TkPrint(void) const
 	cout << TkTypeName() << endl;
 	cout << "Data:\t'";
 	/*
-	 * Tutaj powinienem zastêpowaæ ka¿de wyst±pienie
-	 * '\n' na '\n' (literalnie), ¿eby ³adnie
-	 * zobaczyæ tekst. Na razie niech bêdzie jak
+	 * Tutaj powinienem zastÄ™powaÄ‡ kaÅ¼de wystÄ…pienie
+	 * '\n' na '\n' (literalnie), Å¼eby Å‚adnie
+	 * zobaczyÄ‡ tekst. Na razie niech bÄ™dzie jak
 	 * jest..
 	 */
 	if (tk_data == "\n" || tk_data == "\r\n")

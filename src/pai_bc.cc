@@ -40,7 +40,7 @@ BC::BC_Tokenize(void)
 	ExpectNl();
 	ExpectNl();
 
-	/* Nag³ówek */
+	/* NagÅ‚Ã³wek */
 	ExpectString("HeatTransfer_1.0");
 	ExpectNl();
 	ExpectNl();
@@ -60,13 +60,13 @@ BC::BC_Tokenize(void)
 	l_brzegow = ExpectInt();
 	ExpectNl();
 
-	/* Powtórzona liczba brzegow */
+	/* PowtÃ³rzona liczba brzegow */
 	ExpectNl();
 	lb = ExpectInt();
 	ExpectNl();
 	ExpectNl();
 
-	assert(lb == l_brzegow && "z³a powtórzona liczba brzegow");
+	assert(lb == l_brzegow && "zÅ‚a powtÃ³rzona liczba brzegow");
 	assert(lb >= 0 && "ujemna liczba brzegow");
 
 	warunki = new (nothrow) warunek[l_brzegow];
@@ -167,7 +167,7 @@ BC::BC_Tokenize(void)
 
 	if (verbose) {
 		cout << "---------------------------" << endl;
-		cout << "Wypisujê dane dot. pliku BC" << endl;
+		cout << "WypisujÄ™ dane dot. pliku BC" << endl;
 		cout << l_wymiarow << endl;
 		cout << l_wezlow << endl;
 		cout << l_elem << endl;
