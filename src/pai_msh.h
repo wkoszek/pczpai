@@ -13,7 +13,7 @@ class MSH : public TokList {
 		double **mg;
 		double **gmpk;
 
-		struct wezel *wezly; /* wielkosci l_wezlow */
+		wezel *wezly; /* wielkosci l_wezlow */
 		struct koneksja *koneksje; /* liczba brzegow */
 
 		struct brzeg *brzegi;	/* 
@@ -32,7 +32,7 @@ class MSH : public TokList {
 		MSH(const char *fn);
 
 		/* Zwraca węzeł na podstawie jego indeksu */
-		struct wezel *
+		wezel *
 		Wezel(int idx);
 
 		/* 

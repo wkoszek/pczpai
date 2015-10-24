@@ -210,7 +210,7 @@ MSH::MSH(const char *fn) : TokList(fn)
 /*
  * Zamiast w tablicy, węzły powinny być trzymane w wektorze, albo mapie.
  */
-struct wezel *
+wezel *
 MSH::Wezel(int idx)
 {
 	int i;
@@ -237,7 +237,7 @@ MSH::Process(void)
 	double one_div_4a;
 	double c1, c2, c3;
 	int i1, i2, i3;
-	struct wezel *w1, *w2, *w3;
+	wezel *w1, *w2, *w3;
 	double c21, c22, c23, c31, c32, c33;
 	double ml[3][3];
 	double mp[3][3];
