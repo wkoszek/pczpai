@@ -3,6 +3,7 @@
 #include <iterator>
 #include <cassert>
 #include <list>
+#include <string.h>
 #include <stdlib.h>
 
 using namespace std;
@@ -475,9 +476,7 @@ void
 TokList::TokSkipTill(const tok_type &t)
 {
 	Tok *tk;
-	int k;
 
-	k = 0;
 	tk = NULL;
 
 	tk = TokCurr();

@@ -8,6 +8,7 @@
 #include <iomanip>
 
 #include <sysexits.h>
+#include <string.h>
 
 using namespace std;
 

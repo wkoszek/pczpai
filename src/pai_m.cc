@@ -45,7 +45,6 @@ extern int verbose;
 void
 M::M_Tokenize(void)
 {
-	int i;
 
 	if (verbose)
 		TokListPrint();
@@ -86,13 +85,13 @@ M::M_Tokenize(void)
 	ExpectNl();
 	ExpectNl();
 
-	i = ExpectInt(); ExpectNl();
+	ExpectInt(); ExpectNl();
 
-	i = ExpectInt(); ExpectNl();
+	ExpectInt(); ExpectNl();
 
-	i = ExpectInt(); ExpectWs();
+	ExpectInt(); ExpectWs();
 
-	i = ExpectInt(); ExpectNl();
+	ExpectInt(); ExpectNl();
 
 	(void)ExpectFp();
 

@@ -22,6 +22,9 @@ void
 BC::BC_Tokenize(void)
 {
 	int lb = 0;
+	int i;
+	int _nr_brzegu, _nr_obszaru, _l_wezlow, _l_wezlow2, _id_war, _jak_def;
+	int _l_param, wb;
 
 	if (verbose)
 		TokListPrint();
@@ -72,12 +75,6 @@ BC::BC_Tokenize(void)
 	warunki = new (nothrow) warunek[l_brzegow];
 	assert(warunki != NULL && "nie moge zaalokowac warunkow");
 
-	int i;
-	int _nr_brzegu;
-	int _nr_obszaru;
-	int _l_wezlow;
-	int wb;
-
 	if (verbose) {
 		cerr << "-------------------------" << endl;
 		cerr << "Wczytywanie brzegow z BC" << endl;
@@ -115,11 +112,6 @@ BC::BC_Tokenize(void)
 			continue;
 		}
 
-		int _l_wezlow2;
-		int _id_war;
-		int _jak_def;
-		int _l_param;
-
 		_l_wezlow2 = ExpectInt();
 		ExpectWs();
 		_id_war = ExpectInt();
@@ -139,7 +131,7 @@ BC::BC_Tokenize(void)
 		else if (_id_war == 2)
 			assert(_l_param == 1 && "zla liczba parametrow b");
 		else
-			assert(_l_param == 1 || _l_param == 2 && "Musi byc 1 albo 2");
+			assert(((_l_param == 1) || (_l_param == 2)) && ("Musi byc 1 albo 2"));
 
 		struct param_def *pds = NULL;
 		struct param_def *pd = NULL;
