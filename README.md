@@ -1,5 +1,7 @@
 # Programming Engineering Applications class
 
+[![Build Status](https://travis-ci.org/wkoszek/pczpai.svg?branch=master)](https://travis-ci.org/wkoszek/pczpai)
+
 The Polish name of this class was:
 
 #### Programowanie Aplikacji Inżynierskich
